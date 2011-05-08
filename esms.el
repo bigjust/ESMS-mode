@@ -12,11 +12,11 @@
   (find-file roster-file)
   (get-unavailable-players))
 
-(defmacro traverse-roster (filename start at start-line &rest body)
+(defmacro traverse-file (filename start at start-line &rest body)
   `(let ((moreLines t))
      (with-temp-buffer
-       (goto-line ,start-line)
        (insert-file-contents ,filename)
+       (goto-line ,start-line)
        (let (( moreLines t))
 	 (while moreLines
 	   (setq current-line (split-string (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
@@ -27,17 +27,24 @@
   (interactive)
   (setq unavailable-players nil)
   (let ((unavailable-players nil))
-    (traverse-roster roster-file start at 3
+    (traverse-file roster-file start at 3
 		     (if (> (length current-line) 24)
 			 (if (or (> (string-to-number (nth 24 current-line)) 0)
 				 (> (string-to-number (nth 25 current-line)) 0))
 			     (setq unavailable-players (cons (nth 0 current-line) unavailable-players)))))
     (reverse unavailable-players)))
 
-(defun get-lineup-players ()
+(defun get-roster-players ()
   (interactive)
   (let ((players nil))
-    (traverse-roster teamsheet-file start at 4
-		     (if (member (nth 0 current-line) positions)
-			 (setq players (cons (nth 1 current-line) players))))
+    (traverse-file roster-file start at 3
+		   (if (> (length current-line) 0)
+		       (setq players (cons (car current-line) players))))
     (reverse players)))
+
+(defun get-lineup-players ()
+  (let ((players nil))
+    (traverse-file teamsheet-file start at 4
+		     (if (member (nth 0 current-line) positions)		   
+			 (setq players (cons (nth 1 current-line) players))))
+  (reverse players)))
