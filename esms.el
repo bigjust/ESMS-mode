@@ -24,10 +24,10 @@
   (setq unavailable-players nil)
   (let ((unavailable-players nil))
     (traverse-file roster-file start at 3
-		     (if (> (length current-line) 24)
-			 (if (or (> (string-to-number (nth 24 current-line)) 0)
-				 (> (string-to-number (nth 25 current-line)) 0))
-			     (setq unavailable-players (cons (nth 0 current-line) unavailable-players)))))
+		   (if (> (length current-line) 24)
+		       (if (or (> (string-to-number (nth 24 current-line)) 0)
+			       (> (string-to-number (nth 25 current-line)) 0))
+			   (setq unavailable-players (cons (nth 0 current-line) unavailable-players)))))
     (reverse unavailable-players)))
 
 (defun get-roster-players ()
