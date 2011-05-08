@@ -42,7 +42,7 @@
   "Returns a list of each player on the teamsheet"
   (let ((players nil))
     (traverse-file teamsheet-file start at 4
-		     (if (member (nth 0 current-line) positions)		   
+		     (if (member (nth 0 current-line) positions)
 			 (setq players (cons (nth 1 current-line) players))))
   (reverse players)))
 
