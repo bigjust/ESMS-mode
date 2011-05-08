@@ -71,7 +71,7 @@
 (defun starting-lineup (lineup)
   "returns the first 11 players on the lineup.  assumes a list of 17 players.
    11 (starting lineup) + 5 (substitutes) + 1 (penalty taker)"
-  (nbutlast lineup 6))
+  (butlast lineup 6))
 
 (defun check-lineup-pk (lineup)
   "Checks the teamsheet for a valid penalty kicker. returns nil if "
