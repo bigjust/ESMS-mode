@@ -6,12 +6,6 @@
 
 (defvar positions '("GK" "DF" "DM" "MF" "AM" "FW"))
 
-;; TODO check against lineup
-(defun check-players ()
-  (interactive)
-  (find-file roster-file)
-  (get-unavailable-players))
-
 (defmacro traverse-file (filename start at start-line &rest body)
   `(let ((moreLines t))
      (with-temp-buffer
