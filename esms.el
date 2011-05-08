@@ -29,7 +29,6 @@
     (reverse unavailable-players)))
 
 (defun get-roster-players ()
-  (interactive)
   (let ((players nil))
     (traverse-file roster-file start at 3
 		   (if (> (length current-line) 0)
