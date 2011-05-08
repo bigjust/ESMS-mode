@@ -50,7 +50,8 @@
   "Checks the teamsheet for:
  1. TODO unavailable players 
  2. players not found on the roster
- 3. TODO valid penalty kicker"
+ 3. valid penalty kicker
+ 4. TODO check substitutes not in starting lineup"
   (interactive)
   (let ((roster (get-roster-players))
 	(lineup (get-lineup-players))
@@ -58,7 +59,17 @@
     (dolist (player lineup errors)
       (if (not (member player roster))
 	  (setq errors (cons (concat player " not found in roster") errors))))
+    (if (not (check-lineup-pk lineup))
+    	  (setq errors (cons "Penalty Taker not in starting lineup" errors)))
     (if errors
 	errors
       "No Errors!")))
 
+(defun starting-lineup (lineup)
+  "returns the first 11 players on the lineup.  assumes a list of 17 players.
+   11 (starting lineup) + 5 (substitutes) + 1 (penalty taker)"
+  (nbutlast lineup 6))
+
+(defun check-lineup-pk (lineup)
+  "Checks the teamsheet for a valid penalty kicker. returns nil if "
+  (member (car (last lineup)) (starting-lineup lineup)))
