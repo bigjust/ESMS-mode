@@ -57,7 +57,8 @@
 	(errors (list)))
     (dolist (player lineup errors)
       (if (not (member player roster))
-	  (setq errors (cons (concat player " not found in roster") errors)))
+	  (setq errors (cons (concat player " not found in roster") errors))))
     (if errors
 	errors
-      "No Errors!"))))
+      "No Errors!")))
+
