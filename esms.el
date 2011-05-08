@@ -51,7 +51,7 @@
  1. unavailable players 
  2. players not found on the roster
  3. valid penalty kicker
- 4. TODO check substitutes not in starting lineup"
+ 4. check substitutes not in starting lineup"
   (interactive)
   (let ((roster (get-roster-players))
 	(lineup (get-lineup-players))
@@ -62,11 +62,18 @@
 	  (setq errors (cons (concat player " not found in roster") errors)))
       (if (member player crocked)
 	  (setq errors (cons (concat player " not available to play") errors))))
+    (dolist (player (get-substitutes lineup) errors)
+      (if (member player (starting-lineup lineup))
+	  (setq errors (cons (concat player " is listed as starting and sub") errors))))
     (if (not (check-lineup-pk lineup))
 	(setq errors (cons "Penalty Taker not in starting lineup" errors)))
     (if errors
 	errors
       "No Errors!")))
+
+(defun get-substitutes (lineup)
+  "return subsitutes from lineup (12-16)"
+  (nthcdr 11 (butlast lineup)))
 
 (defun starting-lineup (lineup)
   "returns the first 11 players on the lineup.  assumes a list of 17 players.
