@@ -7,6 +7,7 @@
 (defvar positions '("PK:" "GK" "DF" "DM" "MF" "AM" "FW"))
 
 (defmacro traverse-file (filename start at start-line &rest body)
+  "traverses esms user generated files (rosters and teamsheets)"
   `(let ((moreLines t))
      (with-temp-buffer
        (insert-file-contents ,filename)
@@ -18,6 +19,7 @@
 	   (setq moreLines (= 0 (forward-line 1))))))))
 
 (defun get-unavailable-players ()
+  "Find players in roster who are either injured (crocked) or suspended (bad boys)"
   (interactive)
   (setq unavailable-players nil)
   (let ((unavailable-players nil))
@@ -29,6 +31,7 @@
     (reverse unavailable-players)))
 
 (defun get-roster-players ()
+  "Return a list of each player in the roster"
   (let ((players nil))
     (traverse-file roster-file start at 3
 		   (if (> (length current-line) 0)
@@ -36,6 +39,7 @@
     (reverse players)))
 
 (defun get-lineup-players ()
+  "Returns a list of each player on the teamsheet"
   (let ((players nil))
     (traverse-file teamsheet-file start at 4
 		     (if (member (nth 0 current-line) positions)		   
@@ -43,6 +47,10 @@
   (reverse players)))
 
 (defun check-lineup ()
+  "Checks the teamsheet for:
+ 1. TODO unavailable players 
+ 2. players not found on the roster
+ 3. TODO valid penalty kicker"
   (interactive)
   (let ((roster (get-roster-players))
 	(lineup (get-lineup-players))
