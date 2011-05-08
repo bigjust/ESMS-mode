@@ -42,3 +42,16 @@
 		     (if (member (nth 0 current-line) positions)		   
 			 (setq players (cons (nth 1 current-line) players))))
   (reverse players)))
+
+(defun check-lineup ()
+  (interactive)
+  (let ((roster (get-roster-players))
+	(lineup (get-lineup-players))
+	(errors (list)))
+    (dolist (player lineup errors)
+      (if (not (member player roster))
+	  (setq errors (cons player errors))))
+    (if errors
+	errors
+      "No Errors!")))
+    
