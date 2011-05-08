@@ -24,7 +24,7 @@
 	   (setq moreLines (= 0 (forward-line 1))))))))
 
 (defun get-unavailable-players ()
-
+  (interactive)
   (setq unavailable-players nil)
   (let ((unavailable-players nil))
     (traverse-roster roster-file start at 3
