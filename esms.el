@@ -32,7 +32,7 @@
 			 (if (or (> (string-to-number (nth 24 current-line)) 0)
 				 (> (string-to-number (nth 25 current-line)) 0))
 			     (setq unavailable-players (cons (nth 0 current-line) unavailable-players)))))
-    unavailable-players))
+    (reverse unavailable-players)))
 
 (defun get-lineup-players ()
   (interactive)
@@ -40,4 +40,4 @@
     (traverse-roster teamsheet-file start at 4
 		     (if (member (nth 0 current-line) positions)
 			 (setq players (cons (nth 1 current-line) players))))
-    players))
+    (reverse players)))
