@@ -48,19 +48,22 @@
 
 (defun check-lineup ()
   "Checks the teamsheet for:
- 1. TODO unavailable players 
+ 1. unavailable players 
  2. players not found on the roster
  3. valid penalty kicker
  4. TODO check substitutes not in starting lineup"
   (interactive)
   (let ((roster (get-roster-players))
 	(lineup (get-lineup-players))
+	(crocked (get-unavailable-players))
 	(errors (list)))
     (dolist (player lineup errors)
       (if (not (member player roster))
-	  (setq errors (cons (concat player " not found in roster") errors))))
+	  (setq errors (cons (concat player " not found in roster") errors)))
+      (if (member player crocked)
+	  (setq errors (cons (concat player " not available to play") errors))))
     (if (not (check-lineup-pk lineup))
-    	  (setq errors (cons "Penalty Taker not in starting lineup" errors)))
+	(setq errors (cons "Penalty Taker not in starting lineup" errors)))
     (if errors
 	errors
       "No Errors!")))
