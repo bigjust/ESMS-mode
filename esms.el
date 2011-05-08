@@ -4,7 +4,7 @@
 (defvar roster-file nil)
 (defvar teamsheet-file nil)
 
-(defvar positions '("GK" "DF" "DM" "MF" "AM" "FW"))
+(defvar positions '("PK:" "GK" "DF" "DM" "MF" "AM" "FW"))
 
 (defmacro traverse-file (filename start at start-line &rest body)
   `(let ((moreLines t))
