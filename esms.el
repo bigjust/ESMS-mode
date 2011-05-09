@@ -1,10 +1,12 @@
-(define-derived-mode esms-mode nil "ESMS"
-  "Major mode for setting up a ESMS lineup")
-
 (defvar roster-file nil)
 (defvar teamsheet-file nil)
 
 (defvar positions '("PK:" "GK" "DF" "DM" "MF" "AM" "FW"))
+
+(define-derived-mode esms-mode text-mode "ESMS"
+  "Major mode for setting up a ESMS lineup"
+  (setq teamsheet-file (buffer-file-name)))
+
 
 (defmacro traverse-file (filename start at start-line &rest body)
   "traverses esms user generated files (rosters and teamsheets)"
@@ -67,9 +69,10 @@
 	  (setq errors (cons (concat player " is listed as starting and sub") errors))))
     (if (not (check-lineup-pk lineup))
 	(setq errors (cons "Penalty Taker not in starting lineup" errors)))
-    (if errors
-	errors
-      "No Errors!")))
+    (if (> (length errors) 0)
+	(print errors)
+      (print "No Errors!"))
+    ))
 
 (defun get-substitutes (lineup)
   "return subsitutes from lineup (12-16)"
