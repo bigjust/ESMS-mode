@@ -10,13 +10,14 @@
 
 (defvar roster-file nil)
 (defvar teamsheet-file nil)
+(defvar *roster-directory* "~/SSL/rosters/" "Default directory for rosters")
 
 (defvar positions '("PK:" "GK" "DF" "DM" "MF" "AM" "FW"))
 
 (define-derived-mode esms-mode text-mode "ESMS"
   "Major mode for setting up a ESMS lineup"
-  (setq teamsheet-file (buffer-file-name)))
-
+  (setq teamsheet-file (buffer-file-name))
+  (setq roster-file (concat *roster-directory* (file-name-nondirectory (buffer-file-name)))))
 
 (defmacro traverse-file (filename start at start-line &rest body)
   "traverses esms user generated files (rosters and teamsheets)"
