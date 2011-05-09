@@ -1,3 +1,13 @@
+;; esms.el -- ESMS mode for PBEM football teamsheet checking
+;; https://github.com/bigjust/ESMS-mode
+;;
+;; TODO:
+;;  1. auto-detect roster file for current teamsheet
+;;  2. output errors to temp buffer
+;;  3. highlight errors
+;;  4. syntax table
+;;  5. run every time the teamsheet is saved
+
 (defvar roster-file nil)
 (defvar teamsheet-file nil)
 
