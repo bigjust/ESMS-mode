@@ -81,8 +81,8 @@
     (if (not (check-lineup-pk lineup))
 	(setq errors (cons "Penalty Taker not in starting lineup" errors)))
     (if (> (length errors) 0)
-	(print errors)
-      (print "No Errors!"))
+	(princ errors)
+      (princ "No Errors!"))
     ))
 
 (defun get-substitutes (lineup)
