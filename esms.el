@@ -2,11 +2,9 @@
 ;; https://github.com/bigjust/ESMS-mode
 ;;
 ;; TODO:
-;;  1. auto-detect roster file for current teamsheet
-;;  2. output errors to temp buffer
-;;  3. highlight errors
-;;  4. syntax table
-;;  5. run every time the teamsheet is saved
+;;  1. highlight errors
+;;  2. syntax table
+;;  3. run every time the teamsheet is saved
 
 (defvar roster-file nil)
 (defvar teamsheet-file nil)
